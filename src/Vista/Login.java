@@ -14,10 +14,7 @@ public class Login extends javax.swing.JFrame {
 
     /*************AUTHOR:***************
     *
-    * @author GRUPO 04 NRC: 23555:
-    * JULIO CESAR VASQUEZ GARCIA
-    * JULIO CESAR NATALIO VICTORIO VERASTEGUI
-    * PETER GEORGE KLEPPER SERRANO
+    * @author 
     * EWER ANTHONY VARGAS YANARICO
     */
     @SuppressWarnings("unchecked")
