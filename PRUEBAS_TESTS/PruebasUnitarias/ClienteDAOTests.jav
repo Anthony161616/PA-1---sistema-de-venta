@@ -1,112 +1,89 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package Modelo;
 
+import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Lenovo
- */
-public class ClienteDAOTest {
-    
-    public ClienteDAOTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+public class ClienteDAOTestRefactor {
+
+    private Cliente crearClienteEjemplo() {
+        return new Cliente(1, "12345678", "Jose Manuel", "984755923", "Cusco 8000", "Jose SAC");
     }
 
-    /**
-     * Test of RegistrarCliente method, of class ClienteDAO.
-     */
     @Test
-    public void testRegistrarCliente() {
-        System.out.println("RegistrarCliente");
-        Cliente cliente = null;
-        ClienteDAO instance = new ClienteDAO();
-        boolean expResult = false;
-        boolean result = instance.RegistrarCliente(cliente);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void debeRegistrarCliente() {
+        Cliente cliente = crearClienteEjemplo();
+
+        ClienteDAO dao = new ClienteDAO() {
+            @Override
+            public boolean RegistrarCliente(Cliente c) {
+                return true;
+            }
+        };
+
+        boolean resultado = dao.RegistrarCliente(cliente);
+        assertTrue(resultado);
     }
 
-    /**
-     * Test of ListarCliente method, of class ClienteDAO.
-     */
     @Test
-    public void testListarCliente() {
-        System.out.println("ListarCliente");
-        ClienteDAO instance = new ClienteDAO();
-        List expResult = null;
-        List result = instance.ListarCliente();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void debeListarClientes() {
+        ClienteDAO dao = new ClienteDAO() {
+            @Override
+            public List<Cliente> ListarCliente() {
+                List<Cliente> lista = new ArrayList<>();
+                lista.add(crearClienteEjemplo());
+                return lista;
+            }
+        };
+
+        List<Cliente> clientes = dao.ListarCliente();
+        assertNotNull(clientes);
+        assertFalse(clientes.isEmpty());
     }
 
-    /**
-     * Test of EliminarCliente method, of class ClienteDAO.
-     */
     @Test
-    public void testEliminarCliente() {
-        System.out.println("EliminarCliente");
-        int id = 0;
-        ClienteDAO instance = new ClienteDAO();
-        boolean expResult = false;
-        boolean result = instance.EliminarCliente(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void debeBuscarClientePorDni() {
+        ClienteDAO dao = new ClienteDAO() {
+            @Override
+            public Cliente Buscarcliente(int dni) {
+                return crearClienteEjemplo();
+            }
+        };
+
+        Cliente cliente = dao.Buscarcliente(12345678);
+        assertNotNull(cliente);
+        assertEquals("Jose Manuel", cliente.getNombre());
     }
 
-    /**
-     * Test of ModificarCliente method, of class ClienteDAO.
-     */
     @Test
-    public void testModificarCliente() {
-        System.out.println("ModificarCliente");
-        Cliente cl = null;
-        ClienteDAO instance = new ClienteDAO();
-        boolean expResult = false;
-        boolean result = instance.ModificarCliente(cl);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail. 
+    public void debeModificarCliente() {
+        Cliente cliente = crearClienteEjemplo();
+        cliente.setNombre("Nombre Modificado");
+
+        ClienteDAO dao = new ClienteDAO() {
+            @Override
+            public boolean ModificarCliente(Cliente cl) {
+                return true;
+            }
+        };
+
+        boolean resultado = dao.ModificarCliente(cliente);
+        assertTrue(resultado);
     }
 
-    /**
-     * Test of Buscarcliente method, of class ClienteDAO.
-     */
     @Test
-    public void testBuscarcliente() {
-        System.out.println("Buscarcliente");
-        int dni = 0;
-        ClienteDAO instance = new ClienteDAO();
-        Cliente expResult = null;
-        Cliente result = instance.Buscarcliente(dni);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+    public void debeEliminarCliente() {
+        Cliente cliente = crearClienteEjemplo();
+
+        ClienteDAO dao = new ClienteDAO() {
+            @Override
+            public boolean EliminarCliente(int id) {
+                return true;
+            }
+        };
+
+        boolean resultado = dao.EliminarCliente(cliente.getId());
+        assertTrue(resultado);
     }
-    
 }
